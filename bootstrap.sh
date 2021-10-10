@@ -15,7 +15,6 @@ zypper_refresh() {
     sudo zypper refresh
     sudo zypper --non-interactive install bzip2
     sudo zypper --non-interactive install etcd
-    curl -sfL https://get.k3s.io | sh -
 }
 
 install_docker() {
@@ -84,8 +83,6 @@ main() {
     install_docker
     install_git
     install_gh
-    install_K3s
-    install_skaffold
     modify_bashrc
 
     echo "====================="

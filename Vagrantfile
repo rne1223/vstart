@@ -31,6 +31,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--ioapic", "on"]
       end
     udaconnect.vm.provision "shell", path:"./bootstrap.sh"
+    udaconnect.vm.provision "file", source: "./misc/bin", destination: "/home/vagrant/"
     udaconnect.vm.provision "file", source:"./bootstrap.sh", destination:"/home/vagrant/bin/"
   end
 
