@@ -34,7 +34,7 @@ install_K3s() {
     step "===== Installing K3s ====="
     curl -sfL https://get.k3s.io | sh -
     sudo chown vagrant:vagrant '/etc/rancher/k3s/k3s.yaml'
-    ln -s "/etc/rancher/k3s/k3s.yaml $ENV_KUBELOC/kube.config"
+    ln -s "/etc/rancher/k3s/k3s.yaml $ENV_KUBELOC/config"
 }
 
 install_git() {
