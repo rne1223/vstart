@@ -65,14 +65,22 @@ install_skaffold() {
     mv skaffold $ENV_BIN
 }
 
+install_minikube() {
+    step "==== Installing minikube===="
+    curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    sudo chown vagrant:vagrant minikube 
+    sudo chmod +x minikube 
+    mv minikube $ENV_BIN
+}
+
 modify_bashrc() {
     step "===== Updating ~/.bashrc ====="
 
-    kubectl completion bash >/etc/bash_completion.d/kubectl
-
     # Modifying ~/.bashrc
     echo "set -o vi" >> "${ENV_BASHRC}"
-    echo "source /etc/bash_completion.d/kubectl && source <(kubectl completion bash)" >> "${ENV_BASHRC}"
+    echo "source <(kubectl completion bash)" >> "${ENV_BASHRC}"
+    echo "source <(helm completion bash)" >> "${ENV_BASHRC}"
+    echo "source <(minikube completion bash)" >> "${ENV_BASHRC}"
     echo 'alias k=kubectl' >>  "${ENV_BASHRC}"
     echo 'complete -F __start_kubectl k' >> "${ENV_BASHRC}"
 }

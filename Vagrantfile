@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
     udaconnect.vm.box = default_box
     udaconnect.vm.hostname = "udaconnect"
     udaconnect.vm.network 'private_network', ip: "192.168.0.200",  virtualbox__intnet: true
+    udaconnect.vm.network 'private_network', ip: "192.168.4.200",  virtualbox__intnet: true
     udaconnect.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     udaconnect.vm.network "forwarded_port", guest: 22, host: 2000 # Master Node SSH
     udaconnect.vm.network "forwarded_port", guest: 6443, host: 6443 # API Access
