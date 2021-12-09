@@ -14,25 +14,24 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
 
-  config.vm.define "ubuntul4" do |ubuntul4|
-    ubuntul4.vm.box = default_box
-    ubuntul4.vm.hostname = "ubuntul4"
-    ubuntul4.vm.network 'private_network', ip: "192.168.0.200",  virtualbox__intnet: true
-    ubuntul4.vm.network 'private_network', ip: "192.168.4.200",  virtualbox__intnet: true
-    ubuntul4.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
-    ubuntul4.vm.network "forwarded_port", guest: 22, host: 2000 # Master Node SSH
-    ubuntul4.vm.network "forwarded_port", guest: 6443, host: 6443 # API Access
-    for p in 30000..30100 # expose NodePort IP's
-      ubuntul4.vm.network "forwarded_port", guest: p, host: p, protocol: "tcp"
-      end
-    ubuntul4.vm.provider "virtualbox" do |v|
+  config.vm.define "ubuntu" do |ubuntu|
+    ubuntu.vm.box = default_box
+    ubuntu.vm.hostname = "ubuntu"
+    ubuntu.vm.network 'private_network', ip: "192.168.4.200",  virtualbox__intnet: true
+    ubuntu.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
+    ubuntu.vm.network "forwarded_port", guest: 22, host: 2000 # Master Node SSH
+    ubuntu.vm.network "forwarded_port", guest: 6443, host: 6443 # API Access
+    #for p in 30000..30100 # expose NodePort IP's
+    #  ubuntu.vm.network "forwarded_port", guest: p, host: p, protocol: "tcp"
+    #  end
+    ubuntu.vm.provider "virtualbox" do |v|
       v.memory = "8192"
-      v.name = "ubuntul4"
+      v.name = "ubuntu"
       v.cpus = 4
       v.customize ["modifyvm", :id, "--ioapic", "on"]
       end
-    ubuntul4.vm.provision "shell", path:"./bootstrap.sh"
-    ubuntul4.vm.provision "file", source: "./misc/bin", destination: "/usr/"
+    ubuntu.vm.provision "shell", path:"./bootstrap.sh"
+    #ubuntu.vm.provision "file", source: "./misc/bin", destination: "/usr/"
   end
 
 
